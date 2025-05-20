@@ -1,13 +1,11 @@
 package me.github.IanGFreitas.application;
 
-import me.github.IanGFreitas.Task;
+import me.github.IanGFreitas.entities.Task;
+import me.github.IanGFreitas.util.ListTasks;
 
-import java.util.ArrayList;
-import java.util.LinkedHashSet;
-import java.util.Scanner;
-import java.util.Set;
+import java.util.*;
 
-import static me.github.IanGFreitas.entities.Status.todo;
+import static me.github.IanGFreitas.entities.Status.*;
 
 public class Program {
     public static void main(String[] args) {
@@ -17,7 +15,7 @@ public class Program {
         String line = "";
         int id = 1;
 
-        Set<Task> tasks = new LinkedHashSet<>();
+        ArrayList<Task> tasks = new ArrayList<>();
 
         boolean run = true;
         while(run){
@@ -26,8 +24,36 @@ public class Program {
 
             switch (userInput[0]){
                 case "add":
-                    tasks.add(new Task(id, userInput[1], todo));
+                    String[] taskDescription = Arrays.copyOfRange(userInput, 1, userInput.length);
+                    tasks.add(new Task(id, String.join(" ", taskDescription), todo));
                     id++;
+                    break;
+
+                case "delete":
+                    tasks.remove(Integer.parseInt(userInput[1])-1);
+                    break;
+
+                case "update":
+                    String[] newDescription = Arrays.copyOfRange(userInput, 2, userInput.length);
+                    tasks.get(Integer.parseInt(userInput[1])-1).updateTask(String.join(" ", newDescription));
+                    break;
+
+                case "mark-in-progress":
+                    tasks.get(Integer.parseInt(userInput[1])-1).setStatus(inprogress);
+                    break;
+
+                case "mark-done":
+                    tasks.get(Integer.parseInt(userInput[1])-1).setStatus(done);
+                    break;
+
+                case "list":
+                    String listSubArgument = "";
+                    if (userInput.length > 1) {
+                        listSubArgument = userInput[1];
+                    }
+
+                    ListTasks list = new ListTasks(tasks, listSubArgument);
+                    list.listTask();
                     break;
 
                 case "exit":
@@ -35,11 +61,6 @@ public class Program {
                     break;
             }
         }
-        System.out.println("AAAAAA");
-        for(Task t : tasks){
-            System.out.println(t.toString());
-        }
-
         sc.close();
     }
 }
