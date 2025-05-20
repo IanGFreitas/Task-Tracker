@@ -1,6 +1,7 @@
 package me.github.IanGFreitas.application;
 
 import me.github.IanGFreitas.entities.Task;
+import me.github.IanGFreitas.util.FileHandler;
 import me.github.IanGFreitas.util.ListTasks;
 
 import java.util.*;
@@ -61,6 +62,7 @@ public class Program {
                     break;
             }
         }
+        FileHandler.saveTaskList(tasks);
         sc.close();
     }
 }
