@@ -4,4 +4,9 @@ public enum Status {
     done,
     todo,
     inprogress;
+
+    @Override
+    public String toString() {
+        return "Status{}";
+    }
 }
