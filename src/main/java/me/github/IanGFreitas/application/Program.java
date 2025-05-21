@@ -18,6 +18,10 @@ public class Program {
 
         ArrayList<Task> tasks = new ArrayList<>();
 
+        if (!FileHandler.isDirectoryEmpty()){
+            tasks = FileHandler.loadTasks();
+        }
+        
         boolean run = true;
         while(run){
             line = sc.nextLine();

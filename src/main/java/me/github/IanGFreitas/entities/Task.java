@@ -1,20 +1,29 @@
 package me.github.IanGFreitas.entities;
 
+import java.time.LocalDate;
 import java.util.Calendar;
 
 public class Task {
     private Integer id;
     private String description;
     private Status status;
-    private Calendar createdAt;
-    private Calendar updatedAt;
+    private LocalDate createdAt;
+    private LocalDate updatedAt;
 
     public Task(int id, String description, Status status){
         this.id = id;
         this.description = description;
         this.status = status;
-        createdAt = Calendar.getInstance();
-        updatedAt = Calendar.getInstance();
+        createdAt = LocalDate.now();
+        updatedAt = LocalDate.now();
+    }
+
+    public Task(int id, String description, Status status, LocalDate createdAt, LocalDate updatedAt){
+        this.id = id;
+        this.description = description;
+        this.status = status;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
     }
 
     public int getId(){
@@ -33,17 +42,17 @@ public class Task {
         this.status = status;
     }
 
-    public Calendar createdAt(){
+    public LocalDate createdAt(){
         return createdAt;
     }
 
-    public Calendar updatedAt(){
+    public LocalDate updatedAt(){
         return updatedAt;
     }
 
     public void updateTask(String newDescription){
         description = newDescription;
-        updatedAt = Calendar.getInstance();
+        updatedAt = LocalDate.now();
     }
 
     @Override
